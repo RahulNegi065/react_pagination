@@ -1,25 +1,83 @@
-import logo from './logo.svg';
 import './App.css';
+import ReactPaginate from 'react-paginate';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [items, setitems] = useState([]);
+
+  useEffect(() => {
+    
+    const getComments = async () => {
+      const res = await fetch(
+        `https://jsonplaceholder.typicode.com/posts?&_limit=9`
+      );
+    const data = await res.json();
+    setitems(data);
+    };
+
+    getComments();
+  }, []);
+
+  const fetchComments = async (currentPage) => {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/posts?_page=${currentPage}&_limit=9`
+    );
+    const data = await res.json();
+    return data;
+  };
+
+  const handlePageClick = async (data)=>{
+    let currentPage = data.selected + 1
+    const commentsFormServer =  await fetchComments(currentPage);
+    setitems(commentsFormServer);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ReactPaginate
+      previousLabel={'<<'}
+      nextLabel={'>>'}
+      pageCount={11}
+      // marginPagesDisplayed={'3'}
+      pageRangeDisplayed={'11'}
+      // breakLabel={'...'}
+      onPageChange={handlePageClick}
+      containerClassName='pagination pagination-lg justify-content-center'
+      pageClassName='page-item'
+      pageLinkClassName='page-link'
+      previousClassName='page-item'
+      previousLinkClassName='page-link'
+      nextClassName='page-item'
+      nextLinkClassName='page-link'
+      breakClassName='page-item'
+      breakLinkClassName='page-link'
+      activeClassName='active'
+      />
+      
+      <div className="input-group">
+  <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button type="button" className="btn btn-outline-primary">search</button>
+</div>
+
+<div className="row m-2">
+{items.map((item) => {
+            return  <div className="col-sm-6 col-md-4 v my-2">
+            <div className="card shadow-sm w-100" style={{minHeight: 200}}>
+              <div className="card-body">
+                <h5 className="card-title text-center h3">ID :{item.id} </h5>
+                <h6 className="card-subtitle mb-2 text-muted text-center">{item.title}</h6>
+                <p className="card-text" >{item.body}</p>
+              </div>
+            </div>
+          </div>;
+      })}
+      </div>
     </div>
   );
 }
 
 export default App;
+
+// https://jsonplaceholder.typicode.com/posts
+// https://jsonplaceholder.typicode.com/posts?&_limit=9

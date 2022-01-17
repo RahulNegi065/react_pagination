@@ -36,3 +36,70 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: #282c34;
+}
+
+/* .pagination {
+  margin-bottom: 5px;
+} */
+
+.page-link {
+  position: relative;
+  display: block;
+  background-color: rgb(18, 17, 22) !important;
+  color: #ffffff !important;
+  border: 2px solid #67d5f3 !important;
+}
+
+.page-link:hover{
+  color: #000000 !important;
+  background-color: #dadada !important;
+  border-color: #dadada !important;
+  box-shadow: 0 3px 15px #ffffffce !important;
+}
+
+.pagination > .active > a {
+  background: #000000 !important;
+  color: #00c8ff !important;
+  border: 2.5px solid #00c8ff !important;
+  box-shadow: 0 3px 35px #00c8ff !important;
+  font-weight: 1000;
+  text-align: center;
+}
+
+.card {
+  background-color: #98e7fd;
+}
+
+.input-group,
+.input-group:hover {
+  position: absolute;
+  width: 200px;
+  top: 10px;
+  right: 10px;
+}
+
+.form-control {
+  box-shadow: none !important;
+  color: #000000 !important;
+  border: 3px dotted #00c8ff;
+  border-radius: 0 !important;
+  width: 70%;
+}
+
+.btn,
+.btn:hover,
+.btn:focus{
+  display: flex;
+  background-color: rgb(18, 17, 22);
+  color: white;
+  width: 30%;
+  font-size: 0.9rem;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 8px;
+  box-shadow: none !important;
+}
